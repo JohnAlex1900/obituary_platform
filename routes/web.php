@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ObituaryController;
+use Illuminate\Support\Facades\File;
 
 
 /*
@@ -22,3 +23,13 @@ Route::get('/', function () {
 Route::post('/submit_obituary', [App\Http\Controllers\ObituaryController::class, 'submit'])->name('submit_obituary');
 
 Route::get('/obituaries', [ObituaryController::class, 'index'])->name('index');
+
+Route::get('/storage/{filename}', function ($filename) {
+    $path = storage_path('app/public/' . $filename);
+
+    if (!File::exists($path)) {
+        abort(404);
+    }
+
+    return response()->file($path);
+});
