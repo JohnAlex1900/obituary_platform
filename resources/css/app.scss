@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css?family=Saira+Semi+Condensed&display=swap');
+
+@mixin tf($color: #000, $font-size: 16px, $line-height: 1.5, $font-family: sans-serif, $text-transform: none) {
+    color: $color;
+    font-size: $font-size;
+    line-height: $line-height;
+    font-family: $font-family;
+    text-transform: $text-transform;
+}
+
+@mixin other($border-radius: 4px, $border-style: solid, $border-width: 1px, $cursor: none) {
+    border-radius: $border-radius;
+    border-style: $border-style;
+    border-width: $border-width;
+}
+
+@mixin bm($width: auto, $height: auto, $margin: 0, $padding: 0) {
+    width: $width;
+    height: $height;
+    margin: $margin;
+    padding: $padding;
+}
+
+@mixin flex-center($display: flex, $justify-content: center, $align-items: center) {
+    display: $display;
+    justify-content: $justify-content;
+    align-items: $align-items;
+}
+
+
+$all: all .5s ease;
+$sai: 'Saira Semi Condensed', sans-serif;
+
+*{
+    @include tf($color: #000, $font-family: $sai);  // Corrected usage of mixin arguments
+    @include other($border-radius: 4px, $border-style: solid, $border-width: 1px);
+}
+
+body{
+    background: #dfdfdf;
+}
+
+.container{
+    @include bm($width: 100%, $height: 100%, $padding: 0 16px);
+    @include flex-center($display: flex, $justify-content: center, $align-items: center);  // Ensure flex-center mixin is defined or remove it
+}
+
+form{
+    @include bm($width: 400px);
+    @include flex-center($display: flex, $justify-content: center, $align-items: center);
+    div, label, input, textarea{
+        @include bm($width: 100%);
+    }
+}
+
+.field:nth-of-type(2){
+    @include bm($margin: 36px 0);
+}
+
+label, input, textarea{
+    @include bm($padding: 16px);
+}
+
+label, [placeholder]{
+    @include tf($color: #555);
+}
+
+label i{
+    @include bm($margin: 16px 16px 0 0);
+}
+
+.field:focus-within label{
+    @include tf($color: #000, $text-transform: uppercase, $font-size: 14px);  // Added proper values
+}
+
+input, textarea{
+    background: rgba(255,255,255,.5);
+    border: none;
+    @include other($border-radius: 4px, $border-style: solid, $border-width: 1px);
+    &:focus{
+        background: rgba(255,255,255,1);
+        @include other($border-style: none);
+    }
+}
+
+textarea{
+    resize: none;
+    &::-webkit-scrollbar{
+        @include bm($width: 0);
+    }
+}
+
+button{
+    background: #2f4ad0;
+    @include bm($padding: 8px 16px, $margin: 16px 0 50px 0);
+    @include tf($color: #fff);
+    border: none;
+    @include other($border-radius: 4px, $cursor: pointer, $border-style: solid);
+    &:hover{
+        @include tf($text-transform: uppercase, $font-size: 16px);
+        @include other($border-style: none);
+    }
+}
+
+@media (max-width: 425px){
+    form{
+        @include bm($width: 100%);
+    }
+}
